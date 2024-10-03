@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Socket IO</title>
+     
+    <script type="module">
+        // importa una dependencia externa
+        import { io } from 'https://cdn.socket.io/4.8.0/socket.io.esm.min.js'; 
+        const socket = io()
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value)
+                input.value = ''
+        }});
+    </script>
+
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -28,12 +43,57 @@
             position: relative;
             
         }
+
+        #form {
+            bottom: 0;
+            display: flex;
+            height: 48px;
+            left: 0;
+            padding: 4px;
+            position: absolute;
+            right: 0;
+        }
+
+        #imput {
+            border-radius: 9999px;
+            border: 1px solid #eee;
+            flex: 1;
+            margin: 4px;
+            padding: 0 8px;
+        }
+
+        #input:focus {
+            outline: 0;
+        }
+
+        #form > button{
+            background-color: #0a0;
+            color: #fff;
+            border: 0;
+            border-radius: 4px;
+        }
+
+        #form > button:hover {
+
+            background-color: #0c0;
+                    
+        }
+
+        :root {
+            color-scheme: light dark;
+
+        }
+
     </style>
 </head>
 <body>
     <section id="chat">
-        <form action="">
+        <form id="form">
+            <input type="text" name="input" placeholder="type a message" autocomplete="off" />
+            <button type="submit">Enviar</button>
+
             
+
         </form>
 
     </section>
